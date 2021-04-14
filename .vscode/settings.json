@@ -1,0 +1,24 @@
+{
+  "dart.previewFlutterUiGuides": true,
+  "dart.previewFlutterUiGuidesCustomTracking": true,
+  "dart.lineLength": 100,
+  "dart.enableSdkFormatter": true,
+  "dart.buildRunnerAdditionalArgs": ["--delete-conflicting-outputs"],
+  "dart.warnWhenEditingFilesOutsideWorkspace": true,
+  "dart.debugExternalLibraries": false,
+  "dart.debugSdkLibraries": false,
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [100],
+    "editor.wordBasedSuggestions": true,
+    "files.insertFinalNewline": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+}
