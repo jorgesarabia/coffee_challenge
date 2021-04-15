@@ -149,51 +149,64 @@ class _CoffeeHomeState extends State<CoffeeList> {
             left: 0,
             right: 0,
             height: 100,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    itemCount: coffees.length,
-                    controller: _pageTextController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final opacity = (1 - (index - _textPage).abs()).clamp(0.0, 1.0);
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(
+                begin: 1.0,
+                end: 0.0,
+              ),
+              duration: const Duration(milliseconds: 700),
+              builder: (context, value, child) {
+                return Transform.translate(
+                  offset: Offset(0.0, -150 * value),
+                  child: child,
+                );
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      itemCount: coffees.length,
+                      controller: _pageTextController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final opacity = (1 - (index - _textPage).abs()).clamp(0.0, 1.0);
 
-                      return Opacity(
-                        opacity: opacity,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.2,
-                          ),
-                          child: Hero(
-                            tag: 'text_${coffees[index].name}',
-                            child: Material(
-                              child: Text(
-                                coffees[index].name,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.w800,
+                        return Opacity(
+                          opacity: opacity,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.2,
+                            ),
+                            child: Hero(
+                              tag: 'text_${coffees[index].name}',
+                              child: Material(
+                                child: Text(
+                                  coffees[index].name,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                AnimatedSwitcher(
-                  duration: _duration,
-                  child: Text(
-                    _animatedText(),
-                    style: TextStyle(fontSize: 30),
-                    key: _animatedKey(),
+                  const SizedBox(height: 10),
+                  AnimatedSwitcher(
+                    duration: _duration,
+                    child: Text(
+                      _animatedText(),
+                      style: TextStyle(fontSize: 30),
+                      key: _animatedKey(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
