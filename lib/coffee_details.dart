@@ -47,7 +47,42 @@ class CoffeeDetails extends StatelessWidget {
                 Positioned.fill(
                   child: Hero(
                     tag: coffee.name,
-                    child: Image.asset(coffee.image),
+                    child: Image.asset(
+                      coffee.image,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: size.width * 0.05,
+                  bottom: 0,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(
+                      begin: 1.0,
+                      end: 0.0,
+                    ),
+                    duration: const Duration(milliseconds: 500),
+                    builder: (context, value, child) {
+                      return Transform.translate(
+                        offset: Offset(-100 * value, 150 * value),
+                        child: child,
+                      );
+                    },
+                    child: Text(
+                      '\$${coffee.price.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        shadows: [
+                          BoxShadow(
+                            color: Colors.black45,
+                            blurRadius: 10,
+                            spreadRadius: 20,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
