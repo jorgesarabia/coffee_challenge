@@ -1,3 +1,4 @@
+import 'package:coffee_challenge/coffee_details.dart';
 import 'package:coffee_challenge/util.dart';
 import 'package:flutter/material.dart';
 
@@ -105,21 +106,36 @@ class _CoffeeHomeState extends State<CoffeeList> {
                 final value = -0.4 * result + 1;
                 final opacity = value.clamp(0.0, 1.0);
 
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 25),
-                  child: Transform(
-                    alignment: Alignment.bottomCenter,
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)
-                      ..translate(0.0, size.height / 2.6 * (1 - value).abs())
-                      ..scale(value),
-                    child: Opacity(
-                      opacity: opacity,
-                      child: Hero(
-                        tag: coffee.name,
-                        child: Image.asset(
-                          coffee.image,
-                          fit: BoxFit.fitHeight,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        pageBuilder: (context, animation, _) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: CoffeeDetails(coffee: coffee),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 25),
+                    child: Transform(
+                      alignment: Alignment.bottomCenter,
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..translate(0.0, size.height / 2.6 * (1 - value).abs())
+                        ..scale(value),
+                      child: Opacity(
+                        opacity: opacity,
+                        child: Hero(
+                          tag: coffee.name,
+                          child: Image.asset(
+                            coffee.image,
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
                       ),
                     ),
@@ -149,13 +165,18 @@ class _CoffeeHomeState extends State<CoffeeList> {
                           padding: EdgeInsets.symmetric(
                             horizontal: size.width * 0.2,
                           ),
-                          child: Text(
-                            coffees[index].name,
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.w700,
+                          child: Hero(
+                            tag: 'text_${coffees[index].name}',
+                            child: Material(
+                              child: Text(
+                                coffees[index].name,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
                             ),
                           ),
                         ),
